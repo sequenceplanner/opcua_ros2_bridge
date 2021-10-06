@@ -34,18 +34,90 @@ fn opc_variant_to_serde_value(variant: &Variant) -> serde_json::Value {
 fn mutate_variant_from_json(variant: &mut Variant, new_value: &serde_json::Value) {
     match variant {
         Variant::Empty => {},
-        Variant::Boolean(b) => *b = new_value.as_bool().expect("not a bool"),
-        Variant::SByte(i8) => *i8 = new_value.as_i64().expect("not a number") as i8,
-        Variant::Byte(u8) => *u8 = new_value.as_i64().expect("not a number") as u8,
-        Variant::Int16(i16) => *i16 = new_value.as_i64().expect("not a number") as i16,
-        Variant::UInt16(u16) => *u16 = new_value.as_i64().expect("not a number") as u16,
-        Variant::Int32(i32) => *i32 = new_value.as_i64().expect("not a number") as i32,
-        Variant::UInt32(u32) => *u32 = new_value.as_i64().expect("not a number") as u32,
-        Variant::Int64(i64) => *i64 = new_value.as_i64().expect("not a number"),
-        Variant::UInt64(u64) => *u64 = new_value.as_i64().expect("not a number") as u64,
-        Variant::Float(f32) => *f32 = new_value.as_f64().expect("not a number") as f32,
-        Variant::Double(f64) => *f64 = new_value.as_f64().expect("not a number"),
-        Variant::String(s) => *s = new_value.as_str().expect("not a string").into(),
+        Variant::Boolean(b) => {
+            if !new_value.is_boolean() {
+                println!("warning: not a bool");
+                return;
+            }
+            *b = new_value.as_bool().unwrap();
+        },
+        Variant::SByte(i8) => {
+            if !new_value.is_number() {
+                println!("warning: not a number");
+                return;
+            }
+            *i8 = new_value.as_i64().unwrap() as i8;
+        },
+        Variant::Byte(u8) => {
+            if !new_value.is_number() {
+                println!("warning: not a number");
+                return;
+            }
+            *u8 = new_value.as_i64().unwrap() as u8;
+        },
+        Variant::Int16(i16) => {
+            if !new_value.is_number() {
+                println!("warning: not a number");
+                return;
+            }
+            *i16 = new_value.as_i64().unwrap() as i16;
+        },
+        Variant::UInt16(u16) => {
+            if !new_value.is_number() {
+                println!("warning: not a number");
+                return;
+            }
+            *u16 = new_value.as_i64().unwrap() as u16;
+        },
+        Variant::Int32(i32) => {
+            if !new_value.is_number() {
+                println!("warning: not a number");
+                return;
+            }
+            *i32 = new_value.as_i64().unwrap() as i32;
+        }
+        Variant::UInt32(u32) => {
+            if !new_value.is_number() {
+                println!("warning: not a number");
+                return;
+            }
+            *u32 = new_value.as_i64().unwrap() as u32;
+        },
+        Variant::Int64(i64) => {
+            if !new_value.is_number() {
+                println!("warning: not a number");
+                return;
+            }
+            *i64 = new_value.as_i64().unwrap();
+        },
+        Variant::UInt64(u64) => {
+            if !new_value.is_number() {
+                println!("warning: not a number");
+                return;
+            }
+            *u64 = new_value.as_i64().unwrap() as u64;
+        },
+        Variant::Float(f32) => {
+            if !new_value.is_number() {
+                println!("warning: not a number");
+                return;
+            }
+            *f32 = new_value.as_f64().unwrap() as f32;
+        },
+        Variant::Double(f64) => {
+            if !new_value.is_number() {
+                println!("warning: not a number");
+                return;
+            }
+            *f64 = new_value.as_f64().unwrap();
+        },
+        Variant::String(s) => {
+            if !new_value.is_string() {
+                println!("warning: not a number");
+                return;
+            }
+            *s = new_value.as_str().unwrap().into();
+        }
         _ => panic!("Not implemented"),
     }
 }
