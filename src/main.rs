@@ -134,7 +134,7 @@ fn setup_opc(
         .trust_server_certs(true)
         .session_retry_limit(3)
         .client()
-        .unwrap();
+        .expect("could not create OPC client");
 
     let endpoint: EndpointDescription = (
         server,
@@ -146,8 +146,7 @@ fn setup_opc(
 
     // Create the session
     let session = client
-        .connect_to_endpoint(endpoint, IdentityToken::Anonymous)
-        .unwrap();
+        .connect_to_endpoint(endpoint, IdentityToken::Anonymous)?;
 
     {
         let mut session = session.write().unwrap();
@@ -260,7 +259,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("listening to node ids: {:?}", node_ids);
 
     let state = Arc::new(Mutex::new(HashMap::new()));
-    let (session, _kill) = setup_opc(&server_address, node_ids, state.clone()).expect("could not connect");
+    let (session, _kill) = setup_opc(&server_address, node_ids, state.clone()).expect("could not connect to opc server");
 
     let sub = node.subscribe::<r2r::std_msgs::msg::String>("command")?;
     let publisher = node.create_publisher::<r2r::std_msgs::msg::String>("measured")?;
