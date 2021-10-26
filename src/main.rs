@@ -266,7 +266,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let state_task = state.clone();
     let handle = tokio::task::spawn_blocking(move || loop {
-        node.spin_once(std::time::Duration::from_millis(2000));
+        node.spin_once(std::time::Duration::from_millis(100));
         let state = state_task.lock().unwrap();
 
         let mut json_map = serde_json::Map::with_capacity(state.len());

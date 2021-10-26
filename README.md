@@ -11,10 +11,10 @@ git clone [this repo]
 cd ..
 colcon build
 . install/setup.sh
-ros2 run opcua_ros2_bridge opcua_ros2_bridge --ros-args -p server_address:="opc.tcp://192.168.1.33:4840/" -p node_ids:=["ns=4;i=45","ns=4;i=46","ns=4;i=47","ns=4;i=94"]
+ros2 run opcua_ros2_bridge opcua_ros2_bridge --ros-args -p server_address:="opc.tcp://192.168.1.33:4840/" -p node_ids:=["ns=4;i=45","ns=4;i=46","ns=4;i=47","ns=4;i=94","ns=4;i=306"]
 ```
 
 Or simply
 ```
-cargo run -- --ros-args -p server_address:="opc.tcp://192.168.1.33:4840/" -p node_ids:=["ns=4;i=45","ns=4;i=46","ns=4;i=47","ns=4;i=94"]
+cargo run -- --ros-args -p server_address:="opc.tcp://192.168.1.33:4840/" -p node_ids:=["ns=4;i=45","ns=4;i=46","ns=4;i=47","ns=4;i=94","ns=4;i=306"]
 ```
