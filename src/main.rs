@@ -261,8 +261,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let state = Arc::new(Mutex::new(HashMap::new()));
     let (session, _kill) = setup_opc(&server_address, node_ids, state.clone()).expect("could not connect to opc server");
 
-    let sub = node.subscribe::<r2r::std_msgs::msg::String>("command")?;
-    let publisher = node.create_publisher::<r2r::std_msgs::msg::String>("measured")?;
+    let sub = node.subscribe::<r2r::std_msgs::msg::String>("opc_command")?;
+    let publisher = node.create_publisher::<r2r::std_msgs::msg::String>("opc_measured")?;
 
     let state_task = state.clone();
     let handle = tokio::task::spawn_blocking(move || loop {
