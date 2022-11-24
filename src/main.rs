@@ -4,6 +4,7 @@ use r2r;
 use std::str::FromStr;
 use std::sync::{mpsc, Arc, Mutex, RwLock};
 use std::collections::HashMap;
+use r2r::QosProfile;
 
 fn opc_variant_to_serde_value(variant: &Variant) -> serde_json::Value {
     match variant {
@@ -261,8 +262,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let state = Arc::new(Mutex::new(HashMap::new()));
     let (session, _kill) = setup_opc(&server_address, node_ids, state.clone()).expect("could not connect to opc server");
 
-    let sub = node.subscribe::<r2r::std_msgs::msg::String>("opc_command")?;
-    let publisher = node.create_publisher::<r2r::std_msgs::msg::String>("opc_measured")?;
+    let sub = node.subscribe::<r2r::std_msgs::msg::String>("opc_command", QosProfile::default())?;
+    let publisher = node.create_publisher::<r2r::std_msgs::msg::String>("opc_measured", QosProfile::default())?;
 
     let state_task = state.clone();
     let handle = tokio::task::spawn_blocking(move || loop {

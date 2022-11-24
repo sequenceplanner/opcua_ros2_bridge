@@ -5,7 +5,7 @@ authors = ["Martin Dahl <martin.dahl@gmail.com>"]
 edition = "2018"
 
 [dependencies]
-r2r = "0.5.3"
+r2r = "0.6.3"
 futures = "0.3.15"
 tokio = { version = "1", features = ["full"] }
 opcua-client = {git = "https://github.com/kristoferb/opcua", branch = "0.8.1"}
