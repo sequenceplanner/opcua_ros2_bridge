@@ -1,0 +1,2 @@
+[env]
+IDL_PACKAGE_FILTER = { value = "std_msgs" }
